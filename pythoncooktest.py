@@ -105,7 +105,7 @@ def dedupe(items, key=None):
             seen.add(val)
 a = [ {'x':1, 'y':2}, {'x':1, 'y':3}, {'x':1, 'y':2}, {'x':2, 'y':4}]
 list(dedupe(a, key=lambda d: (d['x'],d['y'])))
-with open("C:\Users\user\Desktop\ff.txt",'r') as f:
+with open('ff.txt','r') as f:
     for line in dedupe(f):
         print line
 
