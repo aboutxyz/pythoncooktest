@@ -62,6 +62,52 @@ d['a'] = 1
 d['b'] = 2
 d['c'] = 3
 #A = 1 B = 2 C= 3 ~AA = 27
-reduce(lambda x,y:x*26+y,map(lambda x:ord(x)-ord('A')+1,s))    #s为字符
+reduce(lambda x,y:x*26+y,map(lambda x:ord(x)-ord('A')+1,s))    #s为字符 EXCEL数字
+
+#字典的最大值
+prices = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+max(zip(prices.values(), prices.keys()))
+sorted(prices)
+sorted(prices.iteritems(), key = lambda x:x[1])
+
+#字典的相同部分
+a = {
+    'x' : 1,
+    'y' : 2,
+    'z' : 3
+}
+
+b = {
+    'w' : 10,
+    'x' : 11,
+    'y' : 2
+}
+a.viewitems() & b.viewitems()
+a.viewitems() - b.viewitems(), 
+a.viewitems() | b.viewitems()
+a.viewitems() ^ b.viewitems()   #对称差集
+
+c = {key:a[key] for key in a.viewkeys() - {'z', 'w'}}
+
+#删除序列相同元素并保持顺序
+def dedupe(items, key=None):
+    seen = set()
+    for item in items:
+        val = item if key is None else key(item)
+        if val not in seen:
+            yield item
+            seen.add(val)
+a = [ {'x':1, 'y':2}, {'x':1, 'y':3}, {'x':1, 'y':2}, {'x':2, 'y':4}]
+list(dedupe(a, key=lambda d: (d['x'],d['y'])))
+with open("C:\Users\user\Desktop\ff.txt",'r') as f:
+    for line in dedupe(f):
+        print line
+
 
 
