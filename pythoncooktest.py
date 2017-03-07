@@ -70,8 +70,9 @@ prices = {
     'AAPL': 612.78,
     'IBM': 205.55,
     'HPQ': 37.20,
-    'FB': 10.75
-}
+    'FB': 10.75,
+    'FBf': 10.75
+    }
 max(zip(prices.values(), prices.keys()))
 sorted(prices)
 sorted(prices.iteritems(), key = lambda x:x[1])
@@ -105,9 +106,79 @@ def dedupe(items, key=None):
             seen.add(val)
 a = [ {'x':1, 'y':2}, {'x':1, 'y':3}, {'x':1, 'y':2}, {'x':2, 'y':4}]
 list(dedupe(a, key=lambda d: (d['x'],d['y'])))
-with open('ff.txt','r') as f:
+'''
+with open('ff.txt','r') as f:   #删除重复行
     for line in dedupe(f):
         print line
+'''
+
+#命名切片
+items = [0, 1, 2, 3, 4, 5, 6]
+a = slice(2,6)
+items[a]
+
+#序列中出现次数最多的元素
+words = [
+    'look', 'into', 'my', 'eyes', 'look', 'into', 'my', 'eyes',
+    'the', 'eyes', 'the', 'eyes', 'the', 'eyes', 'not', 'around', 'the',
+    'eyes', "don't", 'look', 'around', 'the', 'eyes', 'look', 'into',
+    'my', 'eyes', "you're", 'under'
+]
+from collections import Counter
+word_counts = Counter(words)
+word_counts.most_common(3)
+max(zip(dict(word_counts).values(), dict(word_counts).keys()))
+
+#通过某个关键字排序一个字典列表
+rows = [
+    {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003},
+    {'fname': 'David', 'lname': 'Beazley', 'uid': 1002},
+    {'fname': 'John', 'lname': 'Cleese', 'uid': 1001},
+    {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}
+]
+sorted(rows, key = lambda x: (x['lname'], x['uid']))
+
+#通过某个字段将记录分组
+rows = [
+    {'address': '5412 N CLARK', 'date': '07/01/2012'},
+    {'address': '5148 N CLARK', 'date': '07/04/2012'},
+    {'address': '5800 E 58TH', 'date': '07/02/2012'},
+    {'address': '2122 N CLARK', 'date': '07/03/2012'},
+    {'address': '5645 N RAVENSWOOD', 'date': '07/02/2012'},
+    {'address': '1060 W ADDISON', 'date': '07/02/2012'},
+    {'address': '4801 N BROADWAY', 'date': '07/01/2012'},
+    {'address': '1039 W GRANVILLE', 'date': '07/04/2012'},
+]
+'''
+使用多值字典
+from collections import defaultdict
+rows_by_date = defaultdict(list)
+for row in rows:
+    rows_by_date[row['date']].append(row)
+for i in rows_by_date.iteritems():
+    print i
+'''
+'''
+使用groupby
+from itertools import groupby
+rows.sort(key = lambda x:x['date'])
+for date, items in groupby(rows, key = lambda x:x['date']):
+    print date
+    for i in items:
+        print i
+'''
+
+#从字典提取子集
+prices = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+p = {k:v for k,v in prices.iteritems() if v>200}
+print p
+
 
 
 
